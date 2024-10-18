@@ -1,6 +1,6 @@
 var test = require('tap').test;
 var browserify = require('../');
-var through = require('through2');
+var { Transform } = require('readable-stream');
 var vm = require('vm');
 
 test('bundle external global', function (t) {

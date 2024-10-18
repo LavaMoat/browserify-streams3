@@ -1,4 +1,4 @@
-var through = require('through2');
+var { Transform } = require('readable-stream');
 var browserify = require('../');
 var test = require('tap').test;
 var vm = require('vm');

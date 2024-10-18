@@ -1,7 +1,7 @@
 var browserify = require('../');
 var vm = require('vm');
 var test = require('tap').test;
-var through = require('through2');
+var { Transform } = require('readable-stream');
 var xtend = require('xtend');
 
 test('double bundle json', function (t) {
@@ -16,7 +16,7 @@ test('double bundle json', function (t) {
     var b = browserify(__dirname + '/double_bundle_json/index.js', {
         cache: cache
     });
-    b.pipeline.get('deps').push(through.obj(function(row, enc, next) {
+    b.pipeline.get('deps').push(new Transform(function(row, enc, next) {
         cache[row.file] = {
             source: row.source,
             deps: xtend(row.deps)

@@ -1,4 +1,4 @@
-var through = require('through2');
+var { Transform } = require('readable-stream');
 
 module.exports = function(file) {
   return through(function (buf, enc, next) {
