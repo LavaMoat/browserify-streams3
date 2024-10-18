@@ -1,7 +1,7 @@
 var browserify = require('../');
 var test = require('tap').test;
 var vm = require('vm');
-var through = require('through2');
+var { Transform } = require('readable-stream');
 
 test('constants', function (t) {
     t.plan(2);

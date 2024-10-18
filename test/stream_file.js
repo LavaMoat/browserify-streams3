@@ -2,7 +2,7 @@ var browserify = require('../');
 var vm = require('vm');
 var test = require('tap').test;
 var fs = require('fs');
-var through = require('through2');
+var { Transform } = require('readable-stream');
 var path = require('path');
 
 test('stream file', function (t) {

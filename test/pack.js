@@ -1,6 +1,6 @@
 var browserify = require('../');
 var vm = require('vm');
-var through = require('through2');
+var { Transform } = require('readable-stream');
 var test = require('tap').test;
 
 var fs = require('fs');
@@ -20,7 +20,7 @@ test('custom packer', function (t) {
     t.plan(7);
     
     var b = browserify(__dirname + '/entry/main.js');
-    b.pipeline.get('pack').splice(0,1, through.obj(function (row, enc, next) {
+    b.pipeline.get('pack').splice(0,1, new Transform(function (row, enc, next) {
         t.equal(sources[row.id], row.source);
         t.deepEqual(deps[row.id], row.deps);
         this.push(row.id + '\n');

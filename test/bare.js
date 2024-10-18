@@ -5,7 +5,7 @@ var path = require('path');
 var concat = require('concat-stream');
 var vm = require('vm');
 var fs = require('fs');
-var through = require('through2');
+var { Transform } = require('readable-stream');
 var temp = require('temp');
 temp.track();
 var tmpdir = temp.mkdirSync({prefix: 'browserify-test'});

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var fs = require('fs');
 var JSONStream = require('JSONStream');
-var through = require('through2');
+var { Transform } = require('readable-stream');
 var mkdirp = require('mkdirp-classic');
 var path = require('path');
 
@@ -37,7 +37,7 @@ if (b.argv.pack) {
 if (b.argv.deps) {
     var stringify = JSONStream.stringify();
     stringify.pipe(process.stdout);
-    b.pipeline.get('deps').push(through.obj(
+    b.pipeline.get('deps').push(new Transform(
         function (row, enc, next) { stringify.write(row); next() },
         function () { stringify.end() }
     ));
@@ -45,7 +45,7 @@ if (b.argv.deps) {
 }
 
 if (b.argv.list) {
-    b.pipeline.get('deps').push(through.obj(
+    b.pipeline.get('deps').push(new Transform(
         function (row, enc, next) {
             console.log(row.file || row.id);
             next()
